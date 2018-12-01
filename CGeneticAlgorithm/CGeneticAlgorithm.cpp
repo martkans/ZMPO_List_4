@@ -26,41 +26,49 @@ CGeneticAlgorithm::~CGeneticAlgorithm() {
 
 }
 
-void CGeneticAlgorithm::runAlgorithm() {
-    generateFirstPopulation();
+void CGeneticAlgorithm::showResults() {
+    if(valid_knapsack_problem){
+        cout << "Najlepszy osobnik w n-tej generacji: \n"
+                "Lp.\tWartość\tGenotyp\n";
+        for (int j = 0; j < iteration_number; ++j) {
+            cout << j+1 << ".\t" << best_individual_in_nth_iteration.at(j)->fitness <<"\t\t"
+                 << convertIntVectorToString(best_individual_in_nth_iteration.at(j)->genotype) <<"\n";
+        }
 
-    for (int i = 0; i < iteration_number; ++i) {
+        CIndividual* best_solution = getBestSolution(best_individual_in_nth_iteration);
+        cout << "\nNajlepszy osobnik ogólnie: \n"
+                "Wartość\tGenotyp\n";
+        cout << best_solution->fitness <<"\t\t"
+             << convertIntVectorToString(best_solution->genotype) <<"\n";
+    }
+
+}
+
+void CGeneticAlgorithm::runAlgorithm() {
+    valid_knapsack_problem = knapsack_problem->isValidData();
+    if (valid_knapsack_problem){
+        generateFirstPopulation();
+
+        for (int i = 0; i < iteration_number; ++i) {
+            calculateFitness();
+            best_individual_in_nth_iteration.push_back(new CIndividual(*getBestSolution(population)));
+
+
+            vector <CIndividual*> temp_population = crossObjects();
+
+            for (int i = 0; i < population.size(); ++i) {
+                delete population.at(i);
+            }
+
+            population = temp_population;
+
+            mutateObjects();
+        }
+
         calculateFitness();
         best_individual_in_nth_iteration.push_back(new CIndividual(*getBestSolution(population)));
-
-
-        vector <CIndividual*> temp_population = crossObjects();
-
-//        for (int i = 0; i < population.size(); ++i) {
-//            delete population.at(i);
-//            cout << population.at(i) << "\n";
-//        }
-
-        population = temp_population;
-
-        mutateObjects();
     }
 
-    calculateFitness();
-    best_individual_in_nth_iteration.push_back(new CIndividual(*getBestSolution(population)));
-
-    cout << "Najlepszy osobnik w n-tej generacji: \n"
-            "Lp.\tWartość\tGenotyp\n";
-    for (int j = 0; j < iteration_number; ++j) {
-        cout << j+1 << ".\t" << best_individual_in_nth_iteration.at(j)->fitness <<"\t\t"
-        << convertIntVectorToString(best_individual_in_nth_iteration.at(j)->genotype) <<"\n";
-    }
-
-    CIndividual* best_solution = getBestSolution(best_individual_in_nth_iteration);
-    cout << "\nNajlepszy osobnik ogólnie: \n"
-            "Wartość\tGenotyp\n";
-    cout << best_solution->fitness <<"\t\t"
-         << convertIntVectorToString(best_solution->genotype) <<"\n";
 }
 
 CIndividual *CGeneticAlgorithm::getBestSolution(vector <CIndividual*> &population) {
@@ -106,7 +114,7 @@ vector<CIndividual *> CGeneticAlgorithm::crossObjects() {
     vector <CIndividual*> temp_population;
 
     if(population_size % 2 == 1){
-        temp_population.push_back(population.at(getPositionOfRandomCIndividual()));
+        temp_population.push_back(new CIndividual(*population.at(getPositionOfRandomCIndividual())));
     }
 
     do{
@@ -120,8 +128,8 @@ vector<CIndividual *> CGeneticAlgorithm::crossObjects() {
                 temp_population.push_back(children.at(j));
             }
         } else {
-            temp_population.push_back(population.at(first_parent));
-            temp_population.push_back(population.at(second_parent));
+            temp_population.push_back(new CIndividual(*population.at(first_parent)));
+            temp_population.push_back(new CIndividual(*population.at(second_parent)));
         }
 
     }while (temp_population.size() != population_size);

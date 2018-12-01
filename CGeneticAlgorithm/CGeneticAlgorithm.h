@@ -22,10 +22,12 @@ class CGeneticAlgorithm {
         ~CGeneticAlgorithm();
 
         void runAlgorithm();
+        void showResults();
 
 
 private:
         CKnapsackProblem* knapsack_problem;
+        bool valid_knapsack_problem;
 
         int population_size;
         int iteration_number;
@@ -45,6 +47,7 @@ private:
         vector<CIndividual*> crossObjects();
 
         void mutateObjects();
+
 };
 
 

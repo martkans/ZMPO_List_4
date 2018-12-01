@@ -19,7 +19,7 @@ CKnapsackProblem::~CKnapsackProblem() {
 }
 
 bool CKnapsackProblem::isValidData() {
-    cout << "Walidacja danych...";
+    cout << "Walidacja danych...\n";
     if(knapsack_capacity <= 0){
         alert("Pojemność plecaka musi być większa niż 0!\n");
         return false;
@@ -33,7 +33,7 @@ bool CKnapsackProblem::isValidData() {
             }
         }
     }
-    cout << "Walidacja zakończona powodzeniem!\n";
+    cout << "Walidacja zakończona powodzeniem!\n\n";
     return true;
 }
 

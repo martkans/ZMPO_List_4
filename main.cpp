@@ -16,6 +16,7 @@ int main() {
     CGeneticAlgorithm* geneticAlgorithm = new CGeneticAlgorithm(knapsack_problem, 4, 50, 0.7, 0.1);
 
     geneticAlgorithm->runAlgorithm();
+    geneticAlgorithm->showResults();
 
     delete knapsack_problem;
     delete geneticAlgorithm;
