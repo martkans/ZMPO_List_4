@@ -24,10 +24,14 @@ class CGeneticAlgorithm {
         void runAlgorithm();
         void showResults();
 
+        CIndividual* getBestSolution();
+
 
 private:
         CKnapsackProblem* knapsack_problem;
+
         bool valid_knapsack_problem;
+        bool valid_genetic_algorithm;
 
         int population_size;
         int iteration_number;
@@ -37,6 +41,8 @@ private:
 
         vector <CIndividual*> population;
         vector <CIndividual*> best_individual_in_nth_iteration;
+
+        bool isValidData();
 
         CIndividual* getBestSolution(vector <CIndividual*> &population);
 

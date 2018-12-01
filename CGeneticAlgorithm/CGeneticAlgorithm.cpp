@@ -26,8 +26,27 @@ CGeneticAlgorithm::~CGeneticAlgorithm() {
 
 }
 
+bool CGeneticAlgorithm::isValidData() {
+    cout<<"Walidacja danych algorytmu genetycznego...\n";
+    if(population_size < 2){
+        alert("Populacja musi liczyć więcej niż 1 osobnika!\n");
+        return false;
+    } else if(iteration_number < 1) {
+        alert("Liczba iteracji musi być większa niż 1!\n");
+        return false;
+    } else if(crossing_possibility >= 1 || crossing_possibility <= 0){
+        alert("Prawdopodobieństwo krzyżowania musi zawierać się pomiędzy (0;1)\n");
+        return false;
+    } else if(mutation_possibility >= 1 || mutation_possibility <= 0){
+        alert("Prawdopodobieństwo mutacji musi zawierać się pomiędzy (0;1)\n");
+        return false;
+    }
+    cout<<"Walidacja zakończona powodzeniem!\n\n";
+    return true;
+}
+
 void CGeneticAlgorithm::showResults() {
-    if(valid_knapsack_problem){
+    if(valid_knapsack_problem && valid_genetic_algorithm){
         cout << "Najlepszy osobnik w n-tej generacji: \n"
                 "Lp.\tWartość\tGenotyp\n";
         for (int j = 0; j < iteration_number; ++j) {
@@ -44,9 +63,14 @@ void CGeneticAlgorithm::showResults() {
 
 }
 
+CIndividual *CGeneticAlgorithm::getBestSolution() {
+    return getBestSolution(best_individual_in_nth_iteration);
+}
+
 void CGeneticAlgorithm::runAlgorithm() {
     valid_knapsack_problem = knapsack_problem->isValidData();
-    if (valid_knapsack_problem){
+    valid_genetic_algorithm = this->isValidData();
+    if (valid_knapsack_problem && valid_genetic_algorithm){
         generateFirstPopulation();
 
         for (int i = 0; i < iteration_number; ++i) {
