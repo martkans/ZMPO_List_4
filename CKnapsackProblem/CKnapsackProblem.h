@@ -16,6 +16,8 @@ using namespace std;
 
 class CKnapsackProblem {
     public:
+        friend class CGeneticAlgorithm;
+
         CKnapsackProblem(int knapsack_capacity, int number_of_items, vector <CItem*> &items);
         ~CKnapsackProblem();
 

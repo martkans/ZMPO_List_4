@@ -10,6 +10,8 @@
 
 
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 class CGeneticAlgorithm {
@@ -20,7 +22,7 @@ class CGeneticAlgorithm {
         ~CGeneticAlgorithm();
 
         void runAlgorithm();
-        CIndividual* getBestSolution();
+
 
 private:
         CKnapsackProblem* knapsack_problem;
@@ -33,6 +35,16 @@ private:
 
         vector <CIndividual*> population;
         vector <CIndividual*> best_individual_in_nth_iteration;
+
+        CIndividual* getBestSolution(vector <CIndividual*> &population);
+
+        void generateFirstPopulation();
+        void calculateFitness();
+        int getPositionOfRandomCIndividual();
+
+        vector<CIndividual*> crossObjects();
+
+        void mutateObjects();
 };
 
 

@@ -4,31 +4,24 @@
 
 #include "Tools.h"
 
-int convertStringToInt(string input, bool &error){
-    int number;
-
-    istringstream is(input);
-    is >> number;
-    error = false;
-    for (unsigned long i = 0; i < input.length(); ++i) {
-        if(!isInRange(input.at(i), ASCII_ZERO_VALUE, ASCII_NINE_VALUE)){
-            error = true;
-        }
-    }
-    return number;
-}
-
-bool isInRange(int number, int lower_limit, int upper_limit) {
-    if(number >= lower_limit && number <= upper_limit){
-        return true;
-    } else {
-        return false;
-    }
-}
-
 void alert(string message) {
     cout << "\nOperacja zakończona niepowodzeniem!\n"
          << message << "\n";
+}
+
+string convertIntVectorToString(vector<int> &converted_vector) {
+    string temp = "";
+    for (int i = 0; i < converted_vector.size(); ++i) {
+        temp += convertIntToString(converted_vector.at(i));
+    }
+
+    return temp;
+}
+
+string convertIntToString(int number){
+    stringstream ss;
+    ss << number;
+    return ss.str();
 }
 
 //string trim(string processed_string) {
