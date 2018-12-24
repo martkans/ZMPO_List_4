@@ -8,8 +8,8 @@
 
 #define POPULATION_SIZE             4
 #define ITERATION_NUMBER            50
-#define CROSSING_POSSIBILITY        0.7
-#define MUTATION_POSSIBILITY        0.1
+#define CROSSING_PROBABILITY        0.7
+#define MUTATION_PROBABILITY        0.1
 
 using namespace std;
 
@@ -21,7 +21,7 @@ int main() {
     items.push_back(new CItem(3,2));
 
     CKnapsackProblem* knapsack_problem = new CKnapsackProblem(KNAPSACK_CAPACITY, KNAPSACK_NUMBER_OF_ITEMS, items);
-    CGeneticAlgorithm* geneticAlgorithm = new CGeneticAlgorithm(knapsack_problem, POPULATION_SIZE, ITERATION_NUMBER, CROSSING_POSSIBILITY, MUTATION_POSSIBILITY);
+    CGeneticAlgorithm* geneticAlgorithm = new CGeneticAlgorithm(knapsack_problem, POPULATION_SIZE, ITERATION_NUMBER, CROSSING_PROBABILITY, MUTATION_PROBABILITY);
 
     geneticAlgorithm->runAlgorithm();
     geneticAlgorithm->showResults();

@@ -7,6 +7,9 @@
 
 #include "../Tools/Tools.h"
 
+#define MIN_ITEM_VALUE  1
+#define MIN_ITEM_SIZE   1
+
 class CItem {
     public:
         friend class CKnapsackProblem;

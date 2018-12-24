@@ -20,8 +20,8 @@ CKnapsackProblem::~CKnapsackProblem() {
 
 bool CKnapsackProblem::isValidData() {
     cout << "Walidacja danych problemu...\n";
-    if(knapsack_capacity <= 0){
-        alert("Pojemność plecaka musi być większa niż 0!\n");
+    if(knapsack_capacity < MIN_KNAPSACK_CAPACITY){
+        alert("Pojemność plecaka musi wynosić co najmniej " + convertIntToString(MIN_KNAPSACK_CAPACITY) + "!\n");
         return false;
     } else if(number_of_items != items.size()){
         alert("Zadeklarowana ilość rzeczy nie zgadza się z faktyczną!\n");

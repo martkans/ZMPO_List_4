@@ -12,6 +12,8 @@
 #include <vector>
 #include <string>
 
+#define MIN_KNAPSACK_CAPACITY   1
+
 using namespace std;
 
 class CKnapsackProblem {

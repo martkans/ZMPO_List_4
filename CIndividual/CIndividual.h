@@ -13,8 +13,7 @@
 #include "../CKnapsackProblem/CKnapsackProblem.h"
 
 using namespace std;
-/*
- * Prawdopodobna modyfikacja - przekształcić genotyp na typ szablonowy*/
+
 class CIndividual {
     public:
         friend class CGeneticAlgorithm;
@@ -31,7 +30,7 @@ private:
 
         vector <CIndividual*> crossCIndividual(CIndividual* other_object);
         void performMutation();
-        void calculateAdaptation();
+        void calculateFitness();
 
 };
 

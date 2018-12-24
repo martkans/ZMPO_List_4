@@ -45,6 +45,6 @@ void CIndividual::performMutation() {
     }
 }
 
-void CIndividual::calculateAdaptation() {
+void CIndividual::calculateFitness() {
     fitness = knapsack_problem->calculateValueOfGenotype(genotype);
 }

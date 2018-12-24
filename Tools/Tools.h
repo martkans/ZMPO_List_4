@@ -18,7 +18,4 @@ void alert(string message);
 string convertIntVectorToString(vector <int> &converted_vector);
 string convertIntToString(int number);
 
-//string trim(string processed_string);
-
-
 #endif //LISTA4_TOOLS_H

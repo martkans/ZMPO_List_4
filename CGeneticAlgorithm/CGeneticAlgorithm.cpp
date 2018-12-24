@@ -28,17 +28,19 @@ CGeneticAlgorithm::~CGeneticAlgorithm() {
 
 bool CGeneticAlgorithm::isValidData() {
     cout<<"Walidacja danych algorytmu genetycznego...\n";
-    if(population_size < 2){
-        alert("Populacja musi liczyć więcej niż 1 osobnika!\n");
+    if(population_size < MIN_POPULATION_SIZE){
+        alert("Populacja musi co najmniej " + convertIntToString(MIN_POPULATION_SIZE) + " osobników!\n");
         return false;
-    } else if(iteration_number < 1) {
-        alert("Liczba iteracji musi być większa niż 1!\n");
+    } else if(iteration_number < MIN_ITERATION_NUMBER) {
+        alert("Liczba iteracji musi wynosić co najmniej " + convertIntToString(MIN_ITERATION_NUMBER) + "!\n");
         return false;
-    } else if(crossing_possibility >= 1 || crossing_possibility <= 0){
-        alert("Prawdopodobieństwo krzyżowania musi zawierać się pomiędzy (0;1)\n");
+    } else if(crossing_possibility >= MAX_CROSSING_PROBABILITY || crossing_possibility <= MIN_CROSSING_PROBABILITY){
+        alert("Prawdopodobieństwo krzyżowania musi zawierać się pomiędzy ("
+        + convertIntToString(MIN_CROSSING_PROBABILITY) + ";" + convertIntToString(MAX_CROSSING_PROBABILITY) + ")\n");
         return false;
-    } else if(mutation_possibility >= 1 || mutation_possibility <= 0){
-        alert("Prawdopodobieństwo mutacji musi zawierać się pomiędzy (0;1)\n");
+    } else if(mutation_possibility >= MAX_MUTATION_PROBABILITY || mutation_possibility <= MIN_MUTATION_PROBABILITY){
+        alert("Prawdopodobieństwo mutacji musi zawierać się pomiędzy ("
+              + convertIntToString(MIN_MUTATION_PROBABILITY) + ";" + convertIntToString(MAX_MUTATION_PROBABILITY) + ")\n");
         return false;
     }
     cout<<"Walidacja zakończona powodzeniem!\n\n";
@@ -119,7 +121,7 @@ void CGeneticAlgorithm::generateFirstPopulation() {
 
 void CGeneticAlgorithm::calculateFitness() {
     for (int i = 0; i < population_size; ++i) {
-        population.at(i)->calculateAdaptation();
+        population.at(i)->calculateFitness();
     }
 }
 

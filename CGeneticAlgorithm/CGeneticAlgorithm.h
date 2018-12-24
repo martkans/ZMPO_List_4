@@ -13,6 +13,16 @@
 #include <cstdlib>
 #include <ctime>
 
+#define MIN_POPULATION_SIZE     2
+#define MIN_ITERATION_NUMBER    1
+
+#define MIN_CROSSING_PROBABILITY    0
+#define MAX_CROSSING_PROBABILITY    1
+
+#define MIN_MUTATION_PROBABILITY    0
+#define MAX_MUTATION_PROBABILITY    1
+
+
 using namespace std;
 class CGeneticAlgorithm {
     public:
