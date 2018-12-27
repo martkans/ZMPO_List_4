@@ -4,23 +4,22 @@
 
 #include "CIndividual.h"
 
-CIndividual::CIndividual(CKnapsackProblem *knapsack_problem, vector<int> genotype, double &mutation_possibility) {
+CIndividual::CIndividual(CKnapsackProblem *knapsack_problem, vector<int> genotype, double &mutation_probability) {
     this->genotype = genotype;
     this->knapsack_problem = knapsack_problem;
-    this->mutation_possibility = mutation_possibility;
-
-    srand(time(NULL));;
+    this->mutation_probability = mutation_probability;
 }
 
 CIndividual::CIndividual(CIndividual &other_object) {
     this->fitness = other_object.fitness;
-    this->mutation_possibility = other_object.mutation_possibility;
+    this->mutation_probability = other_object.mutation_probability;
     this->genotype = other_object.genotype;
     this->knapsack_problem = other_object.knapsack_problem;
 }
 
 vector<CIndividual *> CIndividual::crossCIndividual(CIndividual *other_object) {
     int cross_position = (rand() % (genotype.size()-1)) + 1;
+
 
     CIndividual* first_child = new CIndividual(*this);
     CIndividual* second_child = new CIndividual(*other_object);
@@ -39,7 +38,7 @@ vector<CIndividual *> CIndividual::crossCIndividual(CIndividual *other_object) {
 
 void CIndividual::performMutation() {
     for (int i = 0; i < genotype.size(); ++i) {
-        if((double)(rand()%101)/100 < mutation_possibility){
+        if((double)(rand()%101)/100 < mutation_probability){
             genotype.at(i) = 1 - genotype.at(i);
         }
     }

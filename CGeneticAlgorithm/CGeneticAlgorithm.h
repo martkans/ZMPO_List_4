@@ -27,7 +27,7 @@ using namespace std;
 class CGeneticAlgorithm {
     public:
         CGeneticAlgorithm(CKnapsackProblem *knapsack_problem, int population_size, int iteration_number,
-                          double crossing_possibility, double mutation_possibility);
+                          double crossing_probability, double mutation_probability);
 
         ~CGeneticAlgorithm();
 
@@ -46,8 +46,8 @@ private:
         int population_size;
         int iteration_number;
 
-        double crossing_possibility;
-        double mutation_possibility;
+        double crossing_probability;
+        double mutation_probability;
 
         vector <CIndividual*> population;
         vector <CIndividual*> best_individual_in_nth_iteration;

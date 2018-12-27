@@ -5,12 +5,12 @@
 #include "CGeneticAlgorithm.h"
 
 CGeneticAlgorithm::CGeneticAlgorithm(CKnapsackProblem *knapsack_problem, int population_size, int iteration_number,
-                                     double crossing_possibility, double mutation_possibility)  {
+                                     double crossing_probability, double mutation_probability)  {
     this->knapsack_problem = knapsack_problem;
     this->population_size = population_size;
     this->iteration_number = iteration_number;
-    this->crossing_possibility = crossing_possibility;
-    this->mutation_possibility = mutation_possibility;
+    this->crossing_probability = crossing_probability;
+    this->mutation_probability = mutation_probability;
 
     srand(time(NULL));
 }
@@ -34,11 +34,11 @@ bool CGeneticAlgorithm::isValidData() {
     } else if(iteration_number < MIN_ITERATION_NUMBER) {
         alert("Liczba iteracji musi wynosić co najmniej " + convertIntToString(MIN_ITERATION_NUMBER) + "!\n");
         return false;
-    } else if(crossing_possibility >= MAX_CROSSING_PROBABILITY || crossing_possibility <= MIN_CROSSING_PROBABILITY){
+    } else if(crossing_probability >= MAX_CROSSING_PROBABILITY || crossing_probability <= MIN_CROSSING_PROBABILITY){
         alert("Prawdopodobieństwo krzyżowania musi zawierać się pomiędzy ("
         + convertIntToString(MIN_CROSSING_PROBABILITY) + ";" + convertIntToString(MAX_CROSSING_PROBABILITY) + ")\n");
         return false;
-    } else if(mutation_possibility >= MAX_MUTATION_PROBABILITY || mutation_possibility <= MIN_MUTATION_PROBABILITY){
+    } else if(mutation_probability >= MAX_MUTATION_PROBABILITY || mutation_probability <= MIN_MUTATION_PROBABILITY){
         alert("Prawdopodobieństwo mutacji musi zawierać się pomiędzy ("
               + convertIntToString(MIN_MUTATION_PROBABILITY) + ";" + convertIntToString(MAX_MUTATION_PROBABILITY) + ")\n");
         return false;
@@ -79,11 +79,10 @@ void CGeneticAlgorithm::runAlgorithm() {
             calculateFitness();
             best_individual_in_nth_iteration.push_back(new CIndividual(*getBestSolution(population)));
 
-
             vector <CIndividual*> temp_population = crossObjects();
 
-            for (int i = 0; i < population.size(); ++i) {
-                delete population.at(i);
+            for (int j = 0; j < population.size(); ++j) {
+                delete population.at(j);
             }
 
             population = temp_population;
@@ -93,6 +92,7 @@ void CGeneticAlgorithm::runAlgorithm() {
 
         calculateFitness();
         best_individual_in_nth_iteration.push_back(new CIndividual(*getBestSolution(population)));
+
     }
 
 }
@@ -110,13 +110,15 @@ CIndividual *CGeneticAlgorithm::getBestSolution(vector <CIndividual*> &populatio
 }
 
 void CGeneticAlgorithm::generateFirstPopulation() {
+
     for (int i = 0; i < population_size; ++i) {
         vector <int> genotype;
         for (int j = 0; j < knapsack_problem->number_of_items; ++j) {
             genotype.push_back(rand()%2);
         }
-        population.push_back(new CIndividual(knapsack_problem, genotype, mutation_possibility));
+        population.push_back(new CIndividual(knapsack_problem, genotype, mutation_probability));
     }
+
 }
 
 void CGeneticAlgorithm::calculateFitness() {
@@ -147,7 +149,7 @@ vector<CIndividual *> CGeneticAlgorithm::crossObjects() {
         int first_parent = getPositionOfRandomCIndividual();
         int second_parent = getPositionOfRandomCIndividual();
 
-        if((double)(rand()%101)/100 < crossing_possibility){
+        if(((double)(rand()%101)/100) < crossing_probability){
             vector <CIndividual*> children = population.at(first_parent)->crossCIndividual(population.at(second_parent));
 
             for (int j = 0; j < children.size(); ++j) {

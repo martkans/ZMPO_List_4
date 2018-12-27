@@ -7,7 +7,7 @@
 #define KNAPSACK_NUMBER_OF_ITEMS    4
 
 #define POPULATION_SIZE             4
-#define ITERATION_NUMBER            50
+#define ITERATION_NUMBER            5
 #define CROSSING_PROBABILITY        0.7
 #define MUTATION_PROBABILITY        0.1
 

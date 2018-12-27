@@ -17,7 +17,7 @@ using namespace std;
 class CIndividual {
     public:
         friend class CGeneticAlgorithm;
-        CIndividual(CKnapsackProblem *knapsack_problem, vector<int> genotype, double &mutation_possibility);
+        CIndividual(CKnapsackProblem *knapsack_problem, vector<int> genotype, double &mutation_probability);
         CIndividual(CIndividual &other_object);
 
 
@@ -25,8 +25,7 @@ private:
         CKnapsackProblem* knapsack_problem;
         vector <int> genotype;
         int fitness;
-        double mutation_possibility;
-
+        double mutation_probability;
 
         vector <CIndividual*> crossCIndividual(CIndividual* other_object);
         void performMutation();
