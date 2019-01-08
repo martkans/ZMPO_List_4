@@ -11,8 +11,6 @@ CGeneticAlgorithm::CGeneticAlgorithm(CKnapsackProblem *knapsack_problem, int pop
     this->iteration_number = iteration_number;
     this->crossing_probability = crossing_probability;
     this->mutation_probability = mutation_probability;
-
-    srand(time(NULL));
 }
 
 CGeneticAlgorithm::~CGeneticAlgorithm() {
@@ -73,6 +71,7 @@ void CGeneticAlgorithm::runAlgorithm() {
     valid_knapsack_problem = knapsack_problem->isValidData();
     valid_genetic_algorithm = this->isValidData();
     if (valid_knapsack_problem && valid_genetic_algorithm){
+        initializeSrand();
         generateFirstPopulation();
 
         for (int i = 0; i < iteration_number; ++i) {
@@ -168,5 +167,12 @@ vector<CIndividual *> CGeneticAlgorithm::crossObjects() {
 void CGeneticAlgorithm::mutateObjects() {
     for (int i = 0; i < population_size; ++i) {
         population.at(i)->performMutation();
+    }
+}
+
+void CGeneticAlgorithm::initializeSrand() {
+    if (!is_srand_initialized){
+        srand(time(NULL));
+        is_srand_initialized = true;
     }
 }

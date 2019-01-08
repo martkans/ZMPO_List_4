@@ -42,6 +42,7 @@ private:
 
         bool valid_knapsack_problem;
         bool valid_genetic_algorithm;
+        bool is_srand_initialized;
 
         int population_size;
         int iteration_number;
@@ -63,6 +64,8 @@ private:
         vector<CIndividual*> crossObjects();
 
         void mutateObjects();
+
+        void initializeSrand();
 
 };
 
